@@ -1,0 +1,56 @@
+// Define segment pins
+#define A 1
+#define B 2
+#define C 3
+#define D 4
+#define E 5
+#define F 6
+#define G 7
+
+// Define digit control pins (transistor base control)
+#define DIGIT1 8  // Leftmost digit (2)
+#define DIGIT2 9  // Rightmost digit (5)
+
+void setup() {
+  // Set segment pins as OUTPUT
+  pinMode(A, OUTPUT); pinMode(B, OUTPUT); pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT); pinMode(E, OUTPUT); pinMode(F, OUTPUT); pinMode(G, OUTPUT);
+
+  // Set digit control pins as OUTPUT
+  pinMode(DIGIT1, OUTPUT);
+  pinMode(DIGIT2, OUTPUT);
+
+  // Ensure both digits are OFF initially (Transistor OFF, so no GND connection)
+  digitalWrite(DIGIT1, LOW);  // Transistor OFF -> Digit 1 OFF
+  digitalWrite(DIGIT2, LOW);  // Transistor OFF -> Digit 2 OFF
+}
+
+void loop() {
+  // Turn OFF all segments before updating
+  clearSegments();
+
+  // Display '2' on Digit 1
+  digitalWrite(DIGIT1, HIGH); // Transistor ON -> Digit 1 ON
+  digitalWrite(DIGIT2, LOW);  // Transistor OFF -> Digit 2 OFF
+  digitalWrite(A, HIGH); digitalWrite(B, HIGH); digitalWrite(C, LOW);
+  digitalWrite(D, HIGH); digitalWrite(E, HIGH); digitalWrite(F, LOW); digitalWrite(G, HIGH);
+  delay(20);  
+  digitalWrite(DIGIT1, LOW); // Transistor OFF -> Digit 1 OFF
+
+  // Turn OFF all segments before updating
+  clearSegments();
+
+  // Display '5' on Digit 2
+  digitalWrite(DIGIT2, HIGH); // Transistor ON -> Digit 2 ON
+  digitalWrite(DIGIT1, LOW);  // Transistor OFF -> Digit 1 OFF
+  digitalWrite(A, HIGH); digitalWrite(B, LOW); digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH); digitalWrite(E, LOW); digitalWrite(F, HIGH); digitalWrite(G, HIGH);
+  delay(20);  
+  digitalWrite(DIGIT2, LOW); // Transistor OFF -> Digit 2 OFF
+}
+
+// Function to turn OFF all segments
+void clearSegments() {
+  digitalWrite(A, LOW); digitalWrite(B, LOW); digitalWrite(C, LOW);
+  digitalWrite(D, LOW); digitalWrite(E, LOW); digitalWrite(F, LOW); digitalWrite(G, LOW);
+}
