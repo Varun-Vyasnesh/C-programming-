@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    int first = 0, second = 1, next;
+
+    // Ask user for number of terms
+    printf("Enter number of terms: ");
+    scanf("%d", &n);
+
+    // Edge case: if n <= 0
+    if (n <= 0) {
+        printf("Please enter a positive number.\n");
+        return 0;
+    }
+
+    // Print first term
+    printf("Fibonacci Series: ");
+
+    if (n >= 1)
+        printf("%d ", first);
+
+    // Print second term
+    if (n >= 2)
+        printf("%d ", second);
+
+    // Generate remaining terms
+    for (i = 2; i < n; i++) {
+        next = first + second;   // Core logic
+        printf("%d ", next);
+
+        // Update values
+        first = second;
+        second = next;
+    }
+
+    return 0;
+}
